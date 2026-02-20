@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        Questo sito è stato progettato per accompagnare la brochure sul tema
+        dell'ecodesign e del riciclo. La struttura è stata ottimizzata
+        per offrire un'esperienza di navigazione moderna e coinvolgente.  
+        Le fonti sono raccolte nella sezione "Sitografia"; qui non compaiono
+        riferimenti tecnici all'interno del testo.
+    -->
+    <title>Ecodesign – Progettare il domani</title>
+    <style>
+    /* Colori ispirati alla brochure: toni di verde, beige e accenti dorati */
+    :root {
+        --green-dark: #3b4d3a;
+        --green-medium: #4e5a3e;
+        --green-light: #7ead76;
+        --beige: #e8dec7;
+        --gold: #caa458;
+    }
+
+    /* Reset di base */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        color: var(--beige);
+        background-color: var(--green-dark);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+    }
+
+    /* Navbar sticky */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(59,77,58,0.9);
+        backdrop-filter: blur(5px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
+    }
+    nav ul {
+        flex: 1;
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    nav a {
+        color: var(--beige);
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        transition: color 0.3s ease, background-color 0.3s ease;
+    }
+    nav a:hover,
+    nav a.active {
+        background-color: var(--green-light);
+        color: var(--green-dark);
+    }
+
+    /* Brand/logo nella barra di navigazione */
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .nav-logo {
+        width: 40px;
+        height: auto;
+        margin-right: 0.75rem;
+        border-radius: 0.25rem;
+    }
+
+    /* Responsive navigation: on small screens, prevent wrapping and allow horizontal scrolling */
+    @media (max-width: 768px) {
+        nav ul {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 0.5rem;
+        }
+        nav ul::-webkit-scrollbar {
+            height: 5px;
+        }
+        nav ul::-webkit-scrollbar-thumb {
+            background-color: var(--green-light);
+            border-radius: 10px;
+        }
+        nav a {
+            font-size: 0.8rem;
+            padding: 0.5rem 0.3rem;
+        }
+    }
+
+    /* Hero section con animazione gradiente e layout a due colonne */
+    .hero {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 5% 4rem;
+        color: var(--beige);
+        position: relative;
+        overflow: hidden;
+    }
+    /* sfondo in movimento usando animazione di sfumature */
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 30%, rgba(126,173,118,0.3), transparent 60%),
+                    radial-gradient(circle at 80% 70%, rgba(202,164,88,0.25), transparent 60%),
+                    radial-gradient(circle at 50% 50%, rgba(78,90,62,0.4), transparent 70%);
+        animation: drift 20s linear infinite;
+        z-index: -1;
+    }
+    @keyframes drift {
+        from { transform: translate(0,0) scale(1); }
+        to   { transform: translate(-10%, -10%) scale(1.2); }
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        color: var(--green-light);
+        margin-bottom: 0.75rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero p {
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        max-width: 600px;
+        margin-bottom: 1.5rem;
+    }
+    .hero .down {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: var(--gold);
+        color: var(--green-dark);
+        font-size: 1.5rem;
+        cursor: pointer;
+        animation: bounce 2s infinite;
+        margin-top: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* contenitore a colonne nel hero */
+    .hero .hero-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+    }
+    /* stile del logo nella hero */
+    .hero .logo {
+        flex: 1 1 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hero .logo img {
+        width: 80%;
+        max-width: 250px;
+        height: auto;
+        border-radius: 0.5rem;
+    }
+
+    .hero .hero-text {
+        flex: 1 1 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-width: 280px;
+    }
+    @keyframes bounce {
+        0%,100% { transform: translateY(0); }
+        50%     { transform: translateY(8px); }
+    }
+
+    /* Sezioni generali */
+    section {
+        padding: 4rem 5% 4rem;
+    }
+    section:nth-of-type(even) {
+        background-color: var(--green-medium);
+    }
+    section h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 1rem;
+        color: var(--green-light);
+    }
+    .section-content {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* Cards per le fasi del ciclo di vita */
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    .card {
+        background-color: #354630;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        flex: 1 1 180px;
+        min-width: 180px;
+        max-width: 220px;
+        text-align: center;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        background-color: #526544;
+    }
+    /* Migliora l'aspetto delle icone nelle carte: icone all'interno di un cerchio colorato */
+    .card .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--green-light);
+        color: var(--green-dark);
+        font-size: 2rem;
+        margin: 0 auto 0.75rem;
+        transition: background-color 0.3s ease;
+    }
+    .card:hover .icon {
+        background-color: var(--gold);
+        color: var(--green-dark);
+    }
+    .card .title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--green-light);
+        margin-bottom: 0.5rem;
+    }
+    .card .question {
+        font-size: 0.9rem;
+        color: var(--beige);
+        opacity: 0;
+        max-height: 0;
+        transition: opacity 0.4s ease, max-height 0.4s ease;
+    }
+    .card.active .question {
+        opacity: 1;
+        max-height: 8rem;
+        margin-top: 0.75rem;
+    }
+
+    /* Timeline UE */
+    .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    .timeline-item {
+        position: relative;
+        padding-left: 1.5rem;
+        border-left: 4px solid var(--gold);
+    }
+    .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: 0.25rem;
+        width: 12px;
+        height: 12px;
+        background-color: var(--gold);
+        border-radius: 50%;
+    }
+    .timeline-item .date {
+        font-weight: bold;
+        color: var(--gold);
+        margin-bottom: 0.3rem;
+    }
+    .timeline-item .text {
+        font-size: 0.95rem;
+    }
+
+    /* Stilizzazione Sitografia */
+    .sources {
+        list-style: none;
+        margin-top: 1rem;
+        padding: 0;
+    }
+    .sources li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+    }
+    .sources li::before {
+        content: "🔗";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--gold);
+    }
+    .sources a {
+        color: var(--green-light);
+        text-decoration: underline;
+        word-break: break-all;
+        font-size: 0.9rem;
+    }
+    .sources a:hover {
+        color: var(--gold);
+    }
+
+    /* Autori */
+    .authors-list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+        padding: 0;
+    }
+    .authors-list li {
+        background-color: #354630;
+        border-radius: 1rem;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--beige);
+        font-weight: bold;
+        font-size: 0.95rem;
+    }
+    .authors-list li .icon {
+        font-size: 1.5rem;
+        color: var(--gold);
+    }
+
+    /* CTA */
+    .cta {
+        text-align: center;
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cta .emoji {
+        font-size: 3rem;
+        color: var(--gold);
+        margin-bottom: 1rem;
+    }
+    .cta a.button {
+        color: var(--green-dark);
+        background-color: var(--green-light);
+        padding: 0.75rem 1.5rem;
+        border-radius: 3rem;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-top: 1rem;
+    }
+    .cta a.button:hover {
+        background-color: var(--gold);
+        color: var(--green-dark);
+    }
+
+    footer {
+        background-color: #2c3925;
+        color: var(--beige);
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.85rem;
+    }
+    </style>
+</head>
+<body>
+    <!-- Barra di navigazione con logo e link -->
+    <nav>
+        <!-- Brand/logo a sinistra -->
+        <div class="nav-brand">
+            <img src="f55d53d7-f17b-42e7-965c-5653ced4293f.jpeg" alt="Logo" class="nav-logo">
+        </div>
+        <!-- Link di navigazione -->
+        <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#intro">Cos'è</a></li>
+            <li><a href="#azienda">RPN</a></li>
+            <li><a href="#lifecycle">Fasi</a></li>
+            <li><a href="#eu">UE</a></li>
+            <li><a href="#sitografia">Fonti</a></li>
+            <li><a href="#autori">Autori</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <!-- logo stilizzato della brochure (mani che sostengono il mondo) -->
+            <div class="logo">
+            <!-- Utilizziamo il logo fornito dall'utente -->
+            <img src="f55d53d7-f17b-42e7-965c-5653ced4293f.jpeg" alt="Logo Ecodesign" class="logo-image" />
+            </div>
+            <!-- testo e call-to-action per la hero -->
+            <div class="hero-text">
+                <h1>Ecodesign</h1>
+                <p>Progettare il domani con responsabilità: dall'origine al riciclo, ogni scelta conta.</p>
+                <div class="down" onclick="document.getElementById('intro').scrollIntoView({behavior:'smooth'});">⌄</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduzione -->
+    <section id="intro">
+        <div class="section-content">
+            <h2>Cos'è l'Ecodesign?</h2>
+            <p>L'ecodesign non è solo estetica e funzionalità; è l'arte di progettare prodotti con una visione responsabile. Significa ridurre l'impatto ambientale lungo tutto il ciclo di vita, scegliere materiali sostenibili e pensare fin dall'inizio al riuso, alla riparazione e al riciclo.</p>
+            <p>Ogni nostra scelta di design incide sul consumo di energia, sull'uso delle risorse naturali e sulla quantità di rifiuti generati. Con l'ecodesign, chiudiamo il cerchio e trasformiamo gli scarti in nuove opportunità.</p>
+        </div>
+    </section>
+
+    <!-- Azienda RPN -->
+    <section id="azienda">
+        <div class="section-content">
+            <h2>L'azienda RPN</h2>
+            <p><strong>RPN S.R.L.</strong> – Ricostruzioni Pneumatici Nocerina – è specializzata nella produzione di granuli, polverini e pavimentazioni antitrauma ottenuti dal riciclo dei pneumatici. L'azienda nasce negli anni '90 con la raccolta e il recupero dei pneumatici fuori uso, investendo nel tempo in tecnologie e risorse fino a diventare una realtà che segue l'intero processo dal ritiro alla trasformazione.</p>
+            <p>I prodotti RPN sono commercializzati su tutto il territorio nazionale. I granuli vengono utilizzati come intaso dei campi da gioco sintetici e come sottofondo drenante e ammortizzante. Piastrelle e moduli realizzano pavimentazioni per l'arredo urbano, parchi giochi, piste di camminamento, palestre, aree sportive e campi equestri.</p>
+            <p>L'azienda contribuisce al recupero di tonnellate di pneumatici fuori uso, riutilizzando materiali scarsi e derivati dal petrolio o dalla gomma naturale per ottenere granuli e polverini destinati ad asfalti silenziosi, pavimentazioni sportive, insonorizzazioni per l'edilizia e generazione di energia. RPN promuove attivamente la cultura del riciclo in Italia, è partner di Ecopneus e possiede la certificazione ambientale ISO&nbsp;14001. Le pavimentazioni antitrauma sono conformi alla norma UNI&nbsp;EN&nbsp;1177. La sede si trova a Nocera Inferiore (SA) e l'organico conta circa 11-50 dipendenti.</p>
+        </div>
+    </section>
+
+    <!-- Fasi del ciclo di vita -->
+    <section id="lifecycle">
+        <div class="section-content">
+            <h2>Le 5 fasi del ciclo di vita</h2>
+            <p>Ciascun prodotto attraversa diverse fasi, dall'origine alla rinascita. Clicca sulle carte per scoprire le domande chiave che guidano un design responsabile:</p>
+            <div class="cards" id="cards">
+                <div class="card" onclick="toggleCard(this);">
+                    <div class="icon">🏔️</div>
+                    <div class="title">Materie prime</div>
+                    <div class="question">Si prelevano dalla terra: petrolio, minerali, legno, acqua. Possiamo ridurne l'uso o preferire materiali già riciclati?</div>
+                </div>
+                <div class="card" onclick="toggleCard(this);">
+                    <div class="icon">🏭</div>
+                    <div class="title">Produzione</div>
+                    <div class="question">Assemblare e trasformare consuma energia e risorse. I processi sono puliti ed efficienti? Usiamo energia da fonti rinnovabili?</div>
+                </div>
+                <div class="card" onclick="toggleCard(this);">
+                    <div class="icon">🚚</div>
+                    <div class="title">Distribuzione</div>
+                    <div class="question">Ogni chilometro percorso aumenta l'impronta di carbonio. Possiamo accorciare la filiera e ridurre gli imballaggi?</div>
+                </div>
+                <div class="card" onclick="toggleCard(this);">
+                    <div class="icon">🧑</div>
+                    <div class="title">Utilizzo</div>
+                    <div class="question">Quanto dura il prodotto? Può essere riparato facilmente? Consuma poca energia durante l'uso?</div>
+                </div>
+                <div class="card" onclick="toggleCard(this);">
+                    <div class="icon">♻️</div>
+                    <div class="title">Fine vita</div>
+                    <div class="question">Quando non serve più, diventa un rifiuto o rinasce? Può essere riciclato, riparato o trasformato in altro?</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione UE -->
+    <section id="eu">
+        <div class="section-content">
+            <h2>Il quadro europeo</h2>
+            <p>L'Unione Europea promuove una transizione verso un'economia circolare. Il regolamento ecodesign per i prodotti sostenibili (ESPR) introduce requisiti di durabilità, riparabilità, riciclabilità e trasparenza lungo l'intera filiera produttiva. Tra le novità, il divieto di distruggere i capi invenduti obbliga i produttori a trovare soluzioni circolari.</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="date">Novembre 2023</div>
+                    <div class="text">La Commissione presenta l'ESPR, stabilendo nuove regole per rendere i prodotti più durevoli, riparabili ed efficienti.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">19 luglio 2026</div>
+                    <div class="text">Per le grandi imprese diventa obbligatorio <em>non distruggere</em> i capi di abbigliamento e le calzature invendute. Si apre la strada alla donazione, alla rivendita e al riciclo.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="date">2030</div>
+                    <div class="text">Il divieto viene esteso alle imprese di medie dimensioni, mentre le piccole imprese rimangono esentate ma devono rendicontare le quantità invendute.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sitografia -->
+    <section id="sitografia">
+        <div class="section-content">
+            <h2>Sitografia</h2>
+            <p>Le seguenti risorse sono state utilizzate per approfondire le informazioni contenute in questa brochure e nel sito. Visita i link per saperne di più:</p>
+            <ul class="sources">
+                <li><a href="https://www.rpntyres.it/rpn/" target="_blank" rel="noopener noreferrer">RPN – Produzione di pavimento in gomma (sito ufficiale)</a></li>
+                <li><a href="https://www.rpntyres.it/economia-circolare-e-rispetto-per-lambiente/" target="_blank" rel="noopener noreferrer">Economia circolare e rispetto per l'ambiente – Blog RPN</a></li>
+                <li><a href="https://it.linkedin.com/company/rpn-tyres" target="_blank" rel="noopener noreferrer">RPN Tyres su LinkedIn</a></li>
+                <li><a href="https://circulareconomynetwork.it/2026/02/11/regolamento-ecodesign-capi-invenduti/" target="_blank" rel="noopener noreferrer">Moda: l’UE vieta la distruzione dei capi invenduti – Circular Economy Network</a></li>
+                <!-- Aggiunta di un collegamento alla normativa europea sull'ecodesign -->
+                <li><a href="https://commission.europa.eu/energy-climate-change-environment/standards-tools-and-labels/products-labelling-rules-and-requirements/ecodesign-sustainable-products-regulation_en#:~:text=Making%20sustainable%20products%20the%20norm,energy%20efficiency%20targets%20by%202030." target="_blank" rel="noopener noreferrer">Ecodesign Sustainable Products Regulation – Commissione Europea</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Autori -->
+    <section id="autori">
+        <div class="section-content">
+            <h2>Autori</h2>
+            <p>Questa brochure e il sito sono stati realizzati dagli studenti della classe 4E:</p>
+            <ul class="authors-list">
+                <li><span class="icon">🎓</span><span>Vittorio D’Andrea</span></li>
+                <li><span class="icon">🎓</span><span>Riccardo Natale</span></li>
+                <li><span class="icon">🎓</span><span>Lucrezia Veneruso</span></li>
+                <li><span class="icon">🎓</span><span>Samuele Carmosino</span></li>
+            </ul>
+            <!-- Spazio extra tra l'elenco e la frase finale -->
+            <br>
+            <p>Classe 4E – Anno Scolastico 25/26</p>
+        </div>
+    </section>
+
+    <!-- CTA finale -->
+    <section id="cta">
+        <div class="section-content cta">
+            <div class="emoji">🌿</div>
+            <h2>Partecipa alla rivoluzione circolare</h2>
+            <p>Scegli soluzioni sostenibili, ripara prima di buttare e privilegia prodotti con un ciclo di vita trasparente. Insieme possiamo costruire un futuro più verde.</p>
+            <a href="#home" class="button">Torna all'inizio</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Progetto Ecodesign · Tutti i diritti riservati.</p>
+    </footer>
+
+    <!-- Script per attivare e disattivare le carte e gestire la navigazione -->
+    <script>
+    // Attiva/disattiva il testo della carta
+    function toggleCard(el) {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(c => {
+            if (c !== el) c.classList.remove('active');
+        });
+        el.classList.toggle('active');
+    }
+
+    // Evidenzia il link di navigazione attivo in base alla sezione visibile
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        },
+        {
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0.1
+        }
+    );
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+    </script>
+</body>
+</html>
